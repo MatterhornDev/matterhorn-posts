@@ -19,6 +19,8 @@ This guide will show you how to set up ESLint with a TypeScript project. The gui
     - [1.2.9 Fixing unused variable definition error from type import](#1.2.9-fixing-unused-variable-definition-error-from-type-import)
   - [1.4 Adding Standard Style Formatter](#1.4-adding-standard-style-formatter)
   - [1.4 Adding Prettier Style Formatter](#1.4-adding-prettier-style-formatter)
+- [2 Additional Details](#2-additional-details)
+  - [Additional Resources and Documentation](#additional-resources-and-documentation)
 
 ## 1 Set Up Guide
 
@@ -27,7 +29,7 @@ Section 1 is a step-by-step guide to configuring ESLint in a TypeScript project.
 ### 1.1 Getting Started
 [`[toc]`](#table-of-contents)
 
-I've created a basic TypeScript project to help you get started. Check out the GitHub repository, [`learn-typescript-linting`](https://github.com:MatterhornDev/learn-typescript-linting), and clone the repository to your local development environment. Copy, paste and execute the following command to clone it directly:
+I've created a basic TypeScript project to help you get started. Check out the GitHub repository, [`learn-typescript-linting`](https://github.com/MatterhornDev/learn-typescript-linting), and clone the repository to your local development environment. Copy, paste and execute the following command to clone it directly:
 ```bash
 git clone git@github.com:MatterhornDev/learn-typescript-linting.git
 git checkout init
@@ -101,9 +103,7 @@ Now that ESLint is configured, create a new npm script in `package.json`:
 
 ```json
 {
-  ...,
   "scripts": {
-    ...,
     "lint": "eslint 'src/**/*.ts'"
   }
 }
@@ -122,7 +122,7 @@ Run this command via `npm run lint`, you should get an output similar to:
 
 /learn-typescript-linting/src/bar.ts
   4:1  error  Expected indentation of 4 spaces but found 2  @typescript-eslint/indent
-  4:19  warning  Missing return type on function               @typescript-eslint/explicit-function-return-type
+  4:19  warning  Missing return type on function            @typescript-eslint/explicit-function-return-type
 
 /learn-typescript-linting/src/foo.ts
   4:1  error  Expected indentation of 4 spaces but found 2  @typescript-eslint/indent
@@ -186,7 +186,6 @@ To start, configure the `no-console` rule by adding the following to the `.eslin
 
 ```json
 {
-  ...,
   "rules": {
     "no-console": "warn"
   }
@@ -225,9 +224,7 @@ ESLint thinks that `CustomType` is never used; however, the source code is defin
 
 ```json
 {
-  ...,
-  rules: {
-    ...,
+  "rules": {
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["error"]
   }
@@ -242,9 +239,12 @@ This configuration turns off the base ESLint rule and enables the typescript-esl
 ### 1.4 Adding Prettier Style Formatter
 [`[toc]`](#table-of-contents)
 
-## Part 2 - Additional Details
+## 2 Additional Details
+[`[toc]`](#table-of-contents)
 
-## Additional Resources and Documentation
+### Additional Resources and Documentation
+[`[toc]`](#table-of-contents)
+
 - [typescript-eslint](https://github.com/typescript-eslint/typescript-eslint): Monorepo for all the tooling which enables ESLint to support TypeScript.
   - [typesciprt-eslint/parser](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser)
   - [typescript-eslint/eslint-plugin](https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin)
