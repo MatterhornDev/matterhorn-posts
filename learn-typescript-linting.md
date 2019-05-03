@@ -67,7 +67,7 @@ Add the following to `.eslintrc.json`
   "plugins": ["@typescript-eslint"],
   "env": { "node": true },
   "parserOptions": {
-    "ecmaVersion": 5, // based on the `target` attr of tsconfig.json
+    "ecmaVersion": 5,
     "sourceType": "module"
   }
 }
