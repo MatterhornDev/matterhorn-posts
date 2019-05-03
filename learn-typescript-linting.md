@@ -8,7 +8,7 @@ This guide will show you how to set up ESLint with a TypeScript project. The gui
 - [1 Set Up Guide](#1-set-up-guide)
   - [1.1 Getting Started](#11-getting-started)
   - [1.2 Adding ESLint](#12-adding-eslint)
-    - [1.2.1 Initializing .eslintrc](#121-initializing-.eslintrc)
+    - [1.2.1 Initializing .eslintrc](#121-initializing-eslintrc)
     - [1.2.2 Specifying environments](#122-specifying-environments)
     - [1.2.3 Specifying ecmaVersion](#123-specifying-ecmaVersion)
     - [1.2.4 Creating ESLint npm script](#124-Creating-ESLint-npm-script)
