@@ -72,17 +72,17 @@ touch .eslintrc.json
 
 Add the following to `.eslintrc.json`
 
-```json
-{
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
-  "env": { "node": true },
-  "parserOptions": {
-    "ecmaVersion": 5,
-    "sourceType": "module"
-  }
-}
+```diff
++{
++  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
++  "parser": "@typescript-eslint/parser",
++  "plugins": ["@typescript-eslint"],
++  "env": { "node": true },
++  "parserOptions": {
++    "ecmaVersion": 5,
++    "sourceType": "module"
++  }
++}
 ```
 
 #### 2.1.1 Specifying environments
@@ -303,11 +303,21 @@ ESLint thinks that `CustomType` is never used; however, the source code is defin
 
 To fix the above `no-unused-vars` error, set two rule configurations.
 
-```json
+```diff
 {
+  "extends": ["eslint:recommended"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "env": { "node": true },
+  "parserOptions": {
+    "ecmaVersion": 5,
+    "sourceType": "module"
+  },
   "rules": {
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": ["error"]
+    "no-console": "warn",
+    "@typescript-eslint/indent": ["error", 2],
++   "no-unused-vars": "off",
++   "@typescript-eslint/no-unused-vars": ["error"]
   }
 }
 ```
@@ -332,9 +342,21 @@ The additional eslint-plugin's are peer dependencies of `eslint-config-standard`
 
 Add it to the config by prepending it to the end of the `"extends"` list.
 
-```json
+```diff
 {
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "standard"]
+- "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
++ "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "standard"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "env": { "node": true },
+  "parserOptions": {
+    "ecmaVersion": 5,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-console": "warn",
+    "@typescript-eslint/indent": ["error", 2]
+  }
 }
 ```
 
@@ -403,10 +425,22 @@ npm i -D prettier eslint-config-prettier eslint-plugin-prettier
 
 Modify the `.eslintrc.json` configuration to use the newely installed configuration and plugin.
 
-```json
+```diff
 {
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
-  "plugins": ["@typescript-eslint", "prettier"]
+- "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
++ "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
+  "parser": "@typescript-eslint/parser",
+- "plugins": ["@typescript-eslint"],
++ "plugins": ["@typescript-eslint", "prettier"],
+  "env": { "node": true },
+  "parserOptions": {
+    "ecmaVersion": 5,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-console": "warn",
+    "@typescript-eslint/indent": ["error", 2]
+  }
 }
 ```
 
@@ -453,11 +487,32 @@ As mentioned previously, the purpose of using a formatter such as prettier is so
 
 To modify Prettier rules you must create either a new `.prettierrc.json` file or add a `"prettier"` section to the `package.json`. In order to eliminate maintaining additional files, I prefer to add it directly to the package.json.
 
-```json
+```diff
 {
-  "prettier": {
-    "semi": false
-  }
+  "name": "learn-typescript-linting",
+  "version": "0.1.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "compile": "tsc -p tsconfig.json",
+    "start": "node lib/index.js",
+    "lint": "eslint 'src/**/*.ts'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^1.7.0",
+    "@typescript-eslint/parser": "^1.7.0",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "prettier": "^1.17.0",
+    "typescript": "^3.4.5"
+  },
++ "prettier": {
++   "semi": false
++ }
 }
 ```
 
