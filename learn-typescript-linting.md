@@ -256,16 +256,11 @@ Configuring semicolons requires specifying the `semi` rule. This rule is similar
 
 | configuration | code | result |
 | - | - | - |
-| `"error"` or `["error", "always"]` | `x = 0` | error ❌ Missing semicolon |
-| | `x = 0;` | pass ✅ |
-| `["error", "never"]` | `x = 0` | pass ✅ |
-| | `x = 0;` | error ❌ Extra semicolon |
-| `"warn"` or `["warn", "always"]` | `x = 0` | warn ⚠️ Missing semicolon |
-| | `x = 0;` | pass ✅ |
-| `["warn", "never"]` | `x = 0` | pass ✅ |
-| | `x = 0;` | warn ⚠️ Extra semicolon |
-| `"off"` or `["off", "always"]` or `["off", "never"]` | `x = 0` | pass ✅ |
-| | `x = 0;` | pass ✅ |
+| `"error"` or `["error", "always"]` | `x = 0` <br> `x = 0;` | error ❌ Missing semicolon <br> pass ✅ |
+| `["error", "never"]` | `x = 0` <br> `x = 0;` | pass ✅ <br> error ❌ Extra semicolon |
+| `"warn"` or `["warn", "always"]` | `x = 0` <br> `x = 0;` | warn ⚠️ Missing semicolon <br> pass ✅ |
+| `["warn", "never"]` | `x = 0` <br> `x = 0;` | pass ✅ <br> warn ⚠️ Extra semicolon |
+| `"off"` or `["off", "always"]` or `["off", "never"]` | `x = 0` <br> `x = 0;` | pass ✅ |
 
 My preference is _sans_ semicolons, so I'll be modifying my `.eslintrc.json` file rule set like so:
 
