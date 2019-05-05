@@ -8,14 +8,14 @@ This guide will show you how to set up [ESLint](https://eslint.org/) with a [Typ
 - [1 Getting Started](#1-getting-started)
 - [2 Adding ESLint](#2-adding-eslint)
   - [2.1 Initializing .eslintrc](#21-initializing-eslintrc)
-  - [2.2 Specifying environments](#22-specifying-environments)
-  - [2.3 Specifying ecmaVersion](#23-specifying-ecmaVersion)
-  - [2.4 Creating ESLint npm script](#24-Creating-ESLint-npm-script)
-  - [2.5 Executing ESLint](#25-executing-eslint)
-  - [2.6 Fixing an ESLint warning](#26-fixing-an-eslint-warning)
-  - [2.7 Configuring ESLint](#27-configuring-eslint)
-  - [2.8 Additional ESLint rule configuration](#28-additional-eslint-rule-configuration)
-  - [2.9 Fixing unused variable definition error from type import](#29-fixing-unused-variable-definition-error-from-type-import)
+    - [2.1.1 Specifying environments](#211-specifying-environments)
+    - [2.1.2 Specifying ecmaVersion](#212-specifying-ecmaVersion)
+  - [2.2 Creating ESLint npm script](#22-Creating-ESLint-npm-script)
+  - [2.3 Executing ESLint](#23-executing-eslint)
+  - [2.4 Fixing an ESLint warning](#24-fixing-an-eslint-warning)
+  - [2.5 Configuring ESLint](#25-configuring-eslint)
+  - [2.6 Additional ESLint rule configuration](#26-additional-eslint-rule-configuration)
+  - [2.7 Fixing unused variable definition error from type import](#27-fixing-unused-variable-definition-error-from-type-import)
 - [3 Adding Standard Style Formatter](#3-adding-standard-style-formatter)
   - [3.1 Installing Standard](#31-installing-standard)
   - [3.2 Evaluating new errors](#32-evaluating-new-errors)
@@ -34,7 +34,7 @@ This guide will show you how to set up [ESLint](https://eslint.org/) with a [Typ
 View the GitHub repository [`learn-typescript-linting`](https://github.com/MatterhornDev/learn-typescript-linting). Copy, paste and execute the following command to clone it to your machine:
 
 ```bash
-git clone git@github.com:MatterhornDev/learn-typescript-linting.git
+git clone https://github.com/MatterhornDev/learn-typescript-linting.git
 git checkout init
 # After cloning
 cd learn-typescript-linting
@@ -71,6 +71,7 @@ touch .eslintrc.json
 [`[toc]`](#table-of-contents)
 
 Add the following to `.eslintrc.json`
+
 ```json
 {
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
@@ -84,12 +85,12 @@ Add the following to `.eslintrc.json`
 }
 ```
 
-### 2.2 Specifying environments
+#### 2.1.1 Specifying environments
 [`[toc]`](#table-of-contents)
 
 The `env` object is used for defining global variables in a project that are not explicitly imported. A great example is the `console` object. This is considered globally available in both browser and Node.js environments. In the `learn-typescript-linting` example, the code will be executed in a Node.js terminal, thus the `node` attributes is enabled. Some other common attributes include `jest`, `mocha`, `amd`, `commonjs`, and `es6`. There is no easy way to know which attributes need to be enabled; it is recommended to consult [ESLint's Specifying Environments](https://eslint.org/docs/user-guide/configuring#specifying-environments) documentation to find out what each environment attribute provides.
 
-### 2.3 Specifying ecmaVersion
+#### 2.1.2 Specifying ecmaVersion
 [`[toc]`](#table-of-contents)
 
 The `parserOptions.ecmaVersion` value is based on the `target` value found in the `tsconfig.json`. A `tsconfig.json` value of `{ "target": "es5" }` is equivalent to `{ "ecmaVersion": 5 }`. Use the table below for additional mappings.
@@ -107,27 +108,32 @@ The `parserOptions.ecmaVersion` value is based on the `target` value found in th
 
 Take a look at TypeScript's `--lib` [compiler options](https://www.typescriptlang.org/docs/handbook/compiler-options.html) to learn how to include unique library files in the compilation. By setting `target` to either `es5` or `es6`, TypeScript will automatically import a set of libraries (i.e. `{ target: es5 } = { lib: ['DOM', 'ES5', 'ScriptHost']}`).
 
-### 2.4 Creating ESLint npm script
+### 2.2 Creating ESLint npm script
 [`[toc]`](#table-of-contents)
 
-Now that ESLint is configured, create a new npm script in `package.json`:
+Now that ESLint is configured, create a new npm script in `package.json` by adding it to the `"scripts"` object:
 
-```json
+```diff
 {
   "scripts": {
-    "lint": "eslint 'src/**/*.ts'"
+    "compile": "tsc -p tsconfig.json",
+    "start": "node lib/index.js",
++   "lint": "eslint 'src/**/*.ts'"
   }
 }
 ```
 
 This command will run ESLint on all `.ts` files within the `src` directory. The `/**/*` glob pattern will reach all files within subdirectories of `src`. If you have multiple directories to run the linter on (such as a `test` directory), use a pattern such as: `{src,test}/**/*.ts`.
 
-### 2.5 Executing ESLint
+### 2.3 Executing ESLint
 [`[toc]`](#table-of-contents)
 
-Run this command via `npm run lint`, you should get an output similar to:
+Run the new command via `npm run lint`, you should get an output similar to:
 
 ```bash
+> learn-typescript-linting@0.1.0 lint /learn-typescript-linting
+> eslint 'src/**/*.ts'
+
 /learn-typescript-linting/src/bar.ts
   4:1  error  Expected indentation of 4 spaces but found 2  @typescript-eslint/indent
   4:19  warning  Missing return type on function            @typescript-eslint/explicit-function-return-type
@@ -142,9 +148,22 @@ Run this command via `npm run lint`, you should get an output similar to:
 
 ✖ 6 problems (5 errors, 1 warnings)
   3 errors and 0 warnings potentially fixable with the `--fix` option.
+
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! learn-typescript-linting@0.1.0 lint: `eslint 'src/**/*.ts'`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the learn-typescript-linting@0.1.0 lint script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /.npm/_logs/2019-05-05T00_51_14_059Z-debug.log
 ```
 
-This output shows two main things. First, it outputs linting errors and warnings (i.e. `@typescript-eslint/indent` and `no-console`). These will come in handy for further configuring ESLint. Second, it says _" 3 errors and 0 warnings potentially fixable with the `--fix` option."_. ESLint comes with a great CLI option `--fix` to automatically fix certain linting errors and warnings.
+> **Note** future command-output references in this post will not include the first two lines (denoted by the `>` character) nor the `npm ERR!` lines as they are not important and contain no useful information (for us). The `npm ERR!` occurs when `npm run lint` fails with a linting _error_. If the script returns a _warning_, an npm error is not thrown. This is expected behaviour and is mainly used in a [continuous integration pipline](https://codeship.com/continuous-integration-essentials) (stay tuned for a future post on CI pipelines).
+
+The output shows two main things. First, it outputs linting errors and warnings (i.e. `@typescript-eslint/indent` and `no-console`). These will come in handy for further configuring ESLint. Second, it says _" 3 errors and 0 warnings potentially fixable with the `--fix` option."_. ESLint comes with a great CLI option `--fix` to automatically fix certain linting errors and warnings.
 
 Run `npm run lint -- --fix` to pass the `--fix` option down to the `eslint` command. After it completes there should be a new output:
 
@@ -161,7 +180,7 @@ Run `npm run lint -- --fix` to pass the `--fix` option down to the `eslint` comm
 
 The source files have now been updated to use 4-spaces per indent rather than 2. Section [2.8](#28-additional-eslint-rule-configuration), will describe how to change this configuration back to 2-spaces as well as how to enable semicolons.
 
-### 2.6 Fixing an ESLint warning
+### 2.4 Fixing an ESLint warning
 [`[toc]`](#table-of-contents)
 
 TypeScript exists to help developers write better and safer code. The typescript-eslint package helps accomplish this by warning of missing explicit types. The warning:
@@ -184,31 +203,91 @@ export function bar (a: CustomType, b: CustomType[]): CustomType {
 
 Run the linter (`npm run lint`), observe how the previous warning no longer exists!
 
-### 2.7 Configuring ESLint
+### 2.5 Configuring ESLint
 [`[toc]`](#table-of-contents)
 
-To start, configure the `no-console` rule by adding the following to the `.eslintrc.json`
+To start, configure the `no-console` rule by adding the following `"rules"` object to the `.eslintrc.json`
 
-```json
+```diff
 {
-  "rules": {
-    "no-console": "warn"
-  }
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "env": { "node": true },
+  "parserOptions": {
+    "ecmaVersion": 5,
+    "sourceType": "module"
+  },
++ "rules": {
++   "no-console": "warn"
++ }
 }
 ```
 
 The `no-console` rule can be configured to one of three values: `"error"` (default), `"warn"`, or `"off"`. Specify the rule to whichever value best serves the project at hand. In my opinion, `no-console` should be enabled as a warning because in a production application it is considered best-practice not to log to console, but to instead use a legitimite logger such as [Pino](http://getpino.io/#/).
 
-### 2.8 Additional ESLint rule configuration
+### 2.6 Additional ESLint rule configuration
 [`[toc]`](#table-of-contents)
 
-Some other opinionated rules are indent spacing and semicolon use. Start by specifying the `@typescript-eslint/indent` rule with the value `["error", 2]`. Make sure to include `@typescript-eslint` in the rule name; otherwise, the configuration will target ESLint's base rule `indent` and not the typescript-eslint's rule `indent`. The value for this rule is different to that of `no-console`. It is an array of parameters. The first value refers to the lint _level_. It can have the value of `"error"` (default), `"warn"`, or `"off"`. Awfully familiar right? The second value is the number of spaces for space-based indentation or the string `"tab"` for tab based indentation. The third and optional value is an object of language specific configurations. Visit the `@typescript-eslint/eslint-plugin` [indent rule documentation](https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/indent.md) for more details.
+Some other opinionated rules are indent spacing and semicolon use. Start by specifying the `@typescript-eslint/indent` rule with the value `["error", 2]`. Make sure to include `@typescript-eslint` in the rule name; otherwise, the configuration will target ESLint's base rule `indent` and not the typescript-eslint's rule `indent`. 
+
+```diff
+{
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "env": { "node": true },
+  "parserOptions": {
+    "ecmaVersion": 5,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-console": "warn",
++   "@typescript-eslint/indent": ["error", 2]
+  }
+}
+```
+
+The value for this rule is different to that of `no-console`. It is an array of parameters. The first value refers to the lint _level_. It can have the value of `"error"` (default), `"warn"`, or `"off"`. Awfully familiar right? The second value is the number of spaces for space-based indentation or the string `"tab"` for tab based indentation. The third and optional value is an object of language specific configurations. Visit the `@typescript-eslint/eslint-plugin` [indent rule documentation](https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/indent.md) for more details.
 
 Based on that documentation, Node.js standard development uses 2-space indentation. Configure the rule and run `npm run lint` to see the indentation errors in the `learn-typescript-linting` project. Run the command with the fix option `npm run lint -- --fix` to automatically fix the errors.
 
-Next, configuring semicolons requires specifying the `semi` rule. Similar to the previous two rules it can be set to one of three values, `"error"`, `"warn"`, or `"off"` (default). My preference is _sans_ semicolons, but to each their own (do not try to debate me on this 😊).
+Configuring semicolons requires specifying the `semi` rule. This rule is similar to the `indent` rule as it is best configured using an array of parameters. The first parameter is one of the three values `"error"`, `"warn"`, or `"off"` (default). The second parameter is a string of either `"always"` or `"never"`. By default, ESLint does not care if semicolons are used or not as JavaScript [automatically inserts semicolons](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Automatic_semicolon_insertion). This rule can also be specified with a singular value of `"error"`, `"warn"`, or `"off"` (default). The configurations and resulting behaviour is best described in a table:
 
-### 2.9 Fixing unused variable definition error from type import
+| configuration | code | result |
+| - | - | - |
+| `"error"` or `["error", "always"]` | `x = 0` | error ❌ Missing semicolon |
+| | `x = 0;` | pass ✅ |
+| `["error", "never"]` | `x = 0` | pass ✅ |
+| | `x = 0;` | error ❌ Extra semicolon |
+| `"warn"` or `["warn", "always"]` | `x = 0` | warn ⚠️ Missing semicolon |
+| | `x = 0;` | pass ✅ |
+| `["warn", "never"]` | `x = 0` | pass ✅ |
+| | `x = 0;` | warn ⚠️ Extra semicolon |
+| `"off"` or `["off", "always"]` or `["off", "never"]` | `x = 0` | pass ✅ |
+| | `x = 0;` | pass ✅ |
+
+My preference is _sans_ semicolons, so I'll be modifying my `.eslintrc.json` file rule set like so:
+
+```diff
+{
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "env": { "node": true },
+  "parserOptions": {
+    "ecmaVersion": 5,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-console": "warn",
+    "@typescript-eslint/indent": ["error", 2],
++   "semi": ["error", "never"]
+  }
+}
+```
+
+### 2.7 Fixing unused variable definition error from type import
 [`[toc]`](#table-of-contents)
 
 This final section covers a common problem case when linting TypeScript with ESLint. If you __do not__ specify `plugin:@typescript-eslint/recommended` in the `.eslintrc.json` configuration `"extends"` list, then a troubling error will be returned from the `learn-typescript-linting` project. Modify the code by removing the second value in the `"extends"` list, or checkout the `learn-typescript-linting/unused-variable` branch to see the error.
@@ -225,7 +304,7 @@ This final section covers a common problem case when linting TypeScript with ESL
 ✖ 4 problems (2 errors, 2 warnings)
 ```
 
-ESLint thinks that `CustomType` is never used; however, the source code is definitely using it, just not in the way ESLint expects it to. This error happens because of how ESLint works. ESLint parses JavaScript into an AST and analyzes that AST using the configured rule set. ESLint does not natively understand how to parse TypeScript; thus, the use of the `typescript-eslint/parser`. The linter then utilizes the `typescript-eslint/eslint-plugin` to enable a rule set to analyze the parsed TypeScrtipt code. For more information on the inner workings of `typescript-eslint` read their documentation on [_How does `typescript-eslint` work and why do you have multiple packages_](https://github.com/typescript-eslint/typescript-eslint#how-does-typescript-eslint-work-and-why-do-you-have-multiple-packages). 
+ESLint thinks that `CustomType` is never used; however, the source code is definitely using it, just not in the way ESLint expects it to. This error happens because of how ESLint works. ESLint parses JavaScript into a data structure called an Abstract Syntax Tree (AST) and analyzes the AST using the configured rule set. An AST is a pragmatic data structure that allows a script to interact and perform functions with other, existing code without having to run the code. In this situation, the ESLint **parsers** are generating the AST from the TypeScript source code, and the ESLint **plugins** are the scripts analyzing the parsed source code. ESLint does not natively understand how to parse TypeScript; thus, the use of the `typescript-eslint/parser`. The linter then utilizes the `typescript-eslint/eslint-plugin` to enable a rule set to analyze the parsed TypeScrtipt code. For more information on the inner workings of `typescript-eslint` read their documentation on [_How does `typescript-eslint` work and why do you have multiple packages_](https://github.com/typescript-eslint/typescript-eslint#how-does-typescript-eslint-work-and-why-do-you-have-multiple-packages). 
 
 To fix the above `no-unused-vars` error, set two rule configurations.
 
