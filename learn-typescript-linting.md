@@ -35,9 +35,8 @@ View the GitHub repository [`learn-typescript-linting`](https://github.com/Matte
 
 ```bash
 git clone https://github.com/MatterhornDev/learn-typescript-linting.git
-git checkout init
-# After cloning
 cd learn-typescript-linting
+git checkout init
 npm install
 ```
 
@@ -72,17 +71,18 @@ touch .eslintrc.json
 
 Add the following to `.eslintrc.json`
 
-```diff
-+{
-+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
-+  "parser": "@typescript-eslint/parser",
-+  "plugins": ["@typescript-eslint"],
-+  "env": { "node": true },
-+  "parserOptions": {
-+    "ecmaVersion": 5,
-+    "sourceType": "module"
-+  }
-+}
+```json
+{
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "env": { "node": true },
+  "parserOptions": {
+    "ecmaVersion": 5,
+    "sourceType": "module"
+  },
+  "rules": {}
+}
 ```
 
 #### 2.1.1 Specifying environments
@@ -210,17 +210,9 @@ To start, configure the `no-console` rule by adding the following `"rules"` obje
 
 ```diff
 {
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
-  "env": { "node": true },
-  "parserOptions": {
-    "ecmaVersion": 5,
-    "sourceType": "module"
-  },
-+ "rules": {
+  "rules": {
 +   "no-console": "warn"
-+ }
+  }
 }
 ```
 
@@ -233,14 +225,6 @@ Some other opinionated rules are indent spacing and semicolon use. Start by spec
 
 ```diff
 {
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
-  "env": { "node": true },
-  "parserOptions": {
-    "ecmaVersion": 5,
-    "sourceType": "module"
-  },
   "rules": {
     "no-console": "warn",
 +   "@typescript-eslint/indent": ["error", 2]
@@ -266,14 +250,6 @@ My preference is _sans_ semicolons, so I'll be modifying my `.eslintrc.json` fil
 
 ```diff
 {
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
-  "env": { "node": true },
-  "parserOptions": {
-    "ecmaVersion": 5,
-    "sourceType": "module"
-  },
   "rules": {
     "no-console": "warn",
     "@typescript-eslint/indent": ["error", 2],
@@ -305,7 +281,8 @@ To fix the above `no-unused-vars` error, set two rule configurations.
 
 ```diff
 {
-  "extends": ["eslint:recommended"],
+- "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"]
++ "extends": ["eslint:recommended"],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
   "env": { "node": true },
@@ -316,6 +293,7 @@ To fix the above `no-unused-vars` error, set two rule configurations.
   "rules": {
     "no-console": "warn",
     "@typescript-eslint/indent": ["error", 2],
+    "semi": ["error", "never"],
 +   "no-unused-vars": "off",
 +   "@typescript-eslint/no-unused-vars": ["error"]
   }
@@ -346,17 +324,6 @@ Add it to the config by prepending it to the end of the `"extends"` list.
 {
 - "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
 + "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "standard"],
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
-  "env": { "node": true },
-  "parserOptions": {
-    "ecmaVersion": 5,
-    "sourceType": "module"
-  },
-  "rules": {
-    "no-console": "warn",
-    "@typescript-eslint/indent": ["error", 2]
-  }
 }
 ```
 
