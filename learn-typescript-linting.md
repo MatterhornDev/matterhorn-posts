@@ -29,7 +29,12 @@ This guide will show you how to set up [ESLint](https://eslint.org/) with a [Typ
 ## 1 Getting Started
 [`[toc]`](#table-of-contents)
 
-**Note:*** Developers without an existing TypeScript project should start here at section 1; developers with an existing project can skip ahead to section [2 Adding ESLint](#2-adding-eslint). This guide works best if you follow along with the GitHub repository.
+Before starting this article, review the following prerequisite information:
+- Installed, stable version of [`Node.js`](https://nodejs.org/en/) and the accompanying version of [`npm`](https://www.npmjs.com/). At the time of writing/publishing this article this includes all stable Node.js versions in scope of: v8.x, v10.x, v11.x, or v12.x.
+- Installed, stable version of [`git`](https://git-scm.com/)
+- A bash terminal. Mac and Linux users should use the default `Terminal` application. Windows users should use `Git Bash` or another bash emulator. The Window's Subsystem for Linux is also a great option. The commands used in the article are `bash` commands and are **not** verified to work on non-bash terminals such as Powershell.
+
+> **Note:** Developers without an existing TypeScript project should start here at section 1; developers with an existing project can skip ahead to section [2 Adding ESLint](#2-adding-eslint). This guide works best if you follow along with the GitHub repository.
 
 View the GitHub repository [`learn-typescript-linting`](https://github.com/MatterhornDev/learn-typescript-linting). Copy, paste and execute the following command to clone it to your machine:
 
@@ -41,17 +46,31 @@ npm install
 ```
 
 The repository comes with multiple branches for different points in the guide.
-- `init`: a baseline repo without ESLint installed so you can follow along (section [2](#2-adding-eslint))
-- `master`: a complete example of TypeScript with ESLint (section [2](#2-adding-eslint))
-- `unused-variable`: an example of a common TypeScript + ESLint error (section [2.9](#29-fixing-unused-variable-definition-error-from-type-import))
-- `standard-style`: a complete example of with Standard (section [3](#3-adding-standard-style-formatter))
-- `prettier-style`: a complete example of with Prettier (section [4](#4-adding-prettier-style-formatter))
+- [`init`](https://github.com/MatterhornDev/learn-typescript-linting/tree/init): a baseline repo without ESLint installed so you can follow along (section [2](#2-adding-eslint))
+- [`master`](https://github.com/MatterhornDev/learn-typescript-linting): a complete example of TypeScript with ESLint (section [2](#2-adding-eslint))
+- [`unused-variable`](https://github.com/MatterhornDev/learn-typescript-linting/tree/unused-variable): an example of a common TypeScript + ESLint error (section [2.9](#29-fixing-unused-variable-definition-error-from-type-import))
+- [`standard-style`](https://github.com/MatterhornDev/learn-typescript-linting/tree/standard-style): a complete example of with Standard (section [3](#3-adding-standard-style-formatter))
+- [`prettier-style`](https://github.com/MatterhornDev/learn-typescript-linting/tree/prettier-style): a complete example of with Prettier (section [4](#4-adding-prettier-style-formatter))
 
 The project comes with a single developer dependency, `typescript`, and two npm scripts, `compile` and `start`. The `compile` command is `tsc -p tsconfig.json`. The project is configured for `es5` in `strict` mode and includes all `.ts` files under the `src` directory. The compiled output can be found in the `lib` directory. The `start` command runs the compiled `.js` output via `node lib/index.js`. Try them out by running:
 
 ```bash
 npm run compile
+
+# Result:
+> learn-typescript-linting@1.0.0 compile /learn-typescript-linting
+> tsc -p tsconfig.json
+```
+
+```bash
 npm run start
+
+# Result:
+> learn-typescript-linting@1.0.0 start /learn-typescript-linting
+> node lib/index.js
+
+2 ** 8 = 256
+35
 ```
 
 It is recommended you do not modify the `.ts` files as they are specifically set up to show off unique aspects of linting typescript projects.
