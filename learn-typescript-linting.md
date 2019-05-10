@@ -519,4 +519,8 @@ Run `npm run lint` and see how the linter now errors on all the semicolons added
 
 ---
 
-Thank you for reading! If you enjoyed this article follow [@MatterhornDev](https://twitter.com/matterhorndev) on Twitter for notifications on all future posts. This article was written by Ethan Arrowood, share you support on Twitter by following him ([@ArrowoodTech](https://twitter.com/ArrowoodTech)) and [sharing this article](https://twitter.com/intent/tweet?text=Learn%20TypeScript%20Linting%20by%20@ArrowoodTech&url=https://github.com/MatterhornDev/matterhorn-posts/blob/master/learn-typescript-linting.md&hashtags=typescript,eslint,standardjs,prettier&via=MatterhornDev&related=ArrowoodTech,MatterhornDev).
+Thank you for reading! If you enjoyed this article follow [@MatterhornDev](https://twitter.com/matterhorndev) on Twitter for notifications on all future posts. This article was written by Ethan Arrowood, share you support on Twitter by following him ([@ArrowoodTech](https://twitter.com/ArrowoodTech)) and [sharing this article](https://twitter.com/intent/tweet?text=Learn%20TypeScript%20Linting%20by%20@ArrowoodTech&url=https://github.com/MatterhornDev/matterhorn-posts/blob/master/learn-typescript-linting.md&hashtags=typescript,eslint,standardjs,prettier&via=MatterhornDev&related=ArrowoodTech,MatterhornDev). 
+
+Special thank you's to Julia Cotter and Colin Hennessey for their help on reviewing and proof reading this article. Find them on GitHub and LinkedIn below!
+- Julia Cotter: [GitHub](https://github.com/juliacotter) [LinkedIn](https://www.linkedin.com/in/julia-cotter/)
+- Colin Hennessey: [GitHub](https://github.com/colinhennessey) [LinkedIn](https://www.linkedin.com/in/colin-hennessey-140625180/)
