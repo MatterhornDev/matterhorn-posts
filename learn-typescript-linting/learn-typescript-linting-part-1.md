@@ -320,7 +320,7 @@ This configuration turns off the base ESLint rule and enables the typescript-esl
 ## 3 Additional Resources and Documentation
 [`[toc]`](#table-of-contents)
 
-- [Learn TypeScript Linting post repository](https://github.com/MatterhornDev/matterhorn-posts/blob/master/learn-typescript-linting.md): This post is open sourced! Check it out at the link and open issues/pull requests if you'd like to contribute to it.
+- [Learn TypeScript Linting post repository](https://github.com/MatterhornDev/matterhorn-posts): This post is open sourced! Check it out at the link and open issues/pull requests if you'd like to contribute to it.
 - [typescript-eslint](https://github.com/typescript-eslint/typescript-eslint): Monorepo for all the tooling which enables ESLint to support TypeScript.
   - [typesciprt-eslint/parser](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser)
   - [typescript-eslint/eslint-plugin](https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin)

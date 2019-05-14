@@ -218,7 +218,7 @@ Run `npm run lint` and see how the linter now errors on all the semicolons added
 ## 3 Additional Resources and Documentation
 [`[toc]`](#table-of-contents)
 
-- [Learn TypeScript Linting post repository](https://github.com/MatterhornDev/matterhorn-posts/blob/master/learn-typescript-linting.md): This post is open sourced! Check it out at the link and open issues/pull requests if you'd like to contribute to it.
+- [Learn TypeScript Linting post repository](https://github.com/MatterhornDev/matterhorn-posts/): This post is open sourced! Check it out at the link and open issues/pull requests if you'd like to contribute to it.
 - [Prettier documentation](https://prettier.io/docs/en/index.html): Prettier code formatter documentation. Relevant sections of the documentation listed below.
   - [Integrating with Linters](https://prettier.io/docs/en/integrating-with-linters.html)
   - [Prettier vs. Linters](https://prettier.io/docs/en/comparison.html)
